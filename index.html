@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO List</title>
+    <style>
+        body{
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        }
+        .title {
+            text-align: center;
+            color:#3e6ca8;
+
+        }
+
+        .action-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
+            border-radius: 5px;
+            border: 1px solid black;
+            width: 410px;
+            margin: 0 auto;
+            padding: 3px;
+
+        }
+
+        .list-container {
+            background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
+            width: 400px;
+            height: 400px;
+            overflow-y: scroll;
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 5px;
+            border: 3px solid  #3e6ca8;
+
+        }
+
+        .todo-item {
+            background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+            border-radius: 5px;
+            padding: 10px 30px;
+            border-radius: 30px;
+            border: 1px solid black;
+            margin: 10px;
+            font-size: 20px;
+
+
+
+        }
+
+        .input-text {
+            width: 250px;
+            font-size: 20px;
+            margin: 5px 3px;
+            border-radius: 30px;
+            padding: 5px 45px;
+            border: solid 1px black;
+        }
+
+        .add-button {
+            color: white;
+            background-color: black;
+            width: 80px;
+            height: 30px;
+            border-radius: 10px;
+            margin-top: 8px;
+            border: none;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">To DO List App</h1>
+    <div class="list-container" id="list-container">
+
+
+
+    </div>
+
+    <div class="action-container">
+        <input type="text" class="input-text" id="input-todo">
+        <button class="add-button" onclick="add() ">
+            add
+        </button>
+
+    </div>
+
+    <script>
+        let todolist = []
+
+        const listFromLocalStorage = localStorage.getItem("todolist");
+        if (listFromLocalStorage) {
+            todolist = JSON.parse(listFromLocalStorage);
+            renderToDoList()
+        }
+
+        function add() {
+            const inputElement = document.getElementById("input-todo")
+
+            todolist.push(inputElement.value);
+
+            localStorage.setItem("todolist", JSON.stringify(todolist));
+
+            inputElement.value = ""
+
+            renderToDoList()
+        }
+
+
+        function renderToDoList() {
+            const listContainer = document.getElementById("list-container")
+
+            listContainer.innerHTML = ""
+            for (const todoItem of todolist) {
+                listContainer.innerHTML += `<div class="todo-item">
+                <input type="checkbox" />
+                ${todoItem}</div>`
+            }
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
